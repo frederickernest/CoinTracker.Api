@@ -9,7 +9,6 @@
   <ItemGroup>
     <None Remove="Services\" />
     <None Remove="Gemini\" />
-    <None Remove="TinyChart\" />
     <None Remove="Models\" />
     <None Remove="Interfaces\" />
     <None Remove="Newtonsoft.Json" />
@@ -17,11 +16,14 @@
   <ItemGroup>
     <Folder Include="Services\" />
     <Folder Include="Gemini\" />
-    <Folder Include="TinyChart\" />
     <Folder Include="Models\" />
     <Folder Include="Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CoinTracker.Models\CoinTracker.Models.csproj" />
+    <ProjectReference Include="..\CoinTracker.Dal\CoinTracker.Dal.csproj" />
   </ItemGroup>
 </Project>
