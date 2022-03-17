@@ -5,32 +5,50 @@ using System.Threading.Tasks;
 using CoinTracker.Client.Interfaces;
 using CoinTracker.Client.Models;
 using CoinTracker.Client.Services;
+using CoinTracker.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace CoinTracker.Api.Controllers
 {
     [Route("api/gemini/symbols")]
     public class GeminiController : Controller
     {
-        private readonly GeminiClientService _geminiClientService;
+        private readonly IGeminiClientService _geminiClientService;
 
-        public GeminiController()
+        public GeminiController(IGeminiClientService geminiClientService)
         {
-            _geminiClientService = new GeminiClientService();
+            _geminiClientService = geminiClientService;
         }
 
         // GET: api/values
         [HttpGet]
-        public async Task<List<string>> TryGetSymbols()
+        public async Task<CoinTrackerResponse<GeminiResponse>> TryGetSymbols()
         {
-            return await _geminiClientService.TryGetSymbols();
+            try
+            {
+                return await _geminiClientService.TryGetSymbols();
+            }
+            catch (Exception ex)
+            {
+                return CoinTrackerResponse<GeminiResponse>
+                    .WithException(ex);
+            }
         }
 
         // GET api/values/5
         [HttpGet("{symbol}")]
-        public async Task<GeminiResponse> TryGetTickerSymbol(string symbol)
+        public async Task<CoinTrackerResponse<GeminiResponse>> TryGetTickerSymbol(string symbol)
         {
-            return await _geminiClientService.TryGetTickerSymbol(symbol);
+            try
+            {
+                return await _geminiClientService.TryGetTickerSymbol(symbol);
+            }
+            catch (Exception ex)
+            {
+                return CoinTrackerResponse<GeminiResponse>
+                    .WithException(ex);
+            }
         }
 
     }

@@ -32,6 +32,7 @@ builder.Services.AddSingleton<IDalService>(services =>
 builder.Services.AddSingleton<IGeminiClientService>(services =>
 {
     var httpClient = new HttpClient();
+    httpClient.BaseAddress = new Uri(GeminiConstants.RootUrl);
     var geminiClient = new GeminiClient(httpClient);
     return new GeminiClientService(geminiClient);
 });
