@@ -15,6 +15,7 @@ namespace CoinTracker.Client.Services
             _geminiClient = geminiClient;
         }
 
+
         public async Task<CoinTrackerResponse<GeminiResponse>> TryGetSymbols()
         {
             return await _geminiClient.GetSymbols();
@@ -23,6 +24,11 @@ namespace CoinTracker.Client.Services
         public async Task<CoinTrackerResponse<GeminiResponse>> TryGetTickerSymbol(string symbol)
         {
             return await _geminiClient.GetTickerSymbol(symbol);
+        }
+
+        public async Task<CoinTrackerResponse<GeminiResponse>> TryGetCandles(string symbol, string interval)
+        {
+            return await _geminiClient.GetCandles(symbol, interval);
         }
     }
 }

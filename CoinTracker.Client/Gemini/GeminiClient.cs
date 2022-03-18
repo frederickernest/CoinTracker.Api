@@ -17,7 +17,8 @@ namespace CoinTracker.Client.Gemini
 
         public async Task<CoinTrackerResponse<GeminiResponse>> GetSymbols()
         {
-            var response = await _client.GetAsync(GeminiConstants.V1 + GeminiConstants.Symbols);
+            var url = GeminiConstants.V1 + GeminiConstants.Symbols;
+            var response = await _client.GetAsync(url);
             if (response.IsSuccessStatusCode)
             {
                 var geminiResponse = new GeminiResponse(JsonConvert.DeserializeObject<List<string>>(await response.Content.ReadAsStringAsync()));
@@ -39,9 +40,18 @@ namespace CoinTracker.Client.Gemini
             return CoinTrackerResponse<GeminiResponse>.WithException(response);
         }
 
-        public void PostData()
+        public async Task<CoinTrackerResponse<GeminiResponse>> GetCandles(string symbol, string interval)
         {
-
+            var url = GeminiConstants.V2 + GeminiConstants.Candles + "/" + symbol + "/" + interval;
+            var response = await _client.GetAsync(url);
+            if (response.IsSuccessStatusCode)
+            {
+                var geminiResponse = new GeminiResponse(JsonConvert.DeserializeObject<List<List<double>>>(await response.Content.ReadAsStringAsync()));
+                return CoinTrackerResponse<GeminiResponse>.WithOk(geminiResponse);
+            }
+            return CoinTrackerResponse<GeminiResponse>.WithException(response);
         }
+
+
     }
 }

@@ -12,6 +12,7 @@ namespace CoinTracker.Client.Gemini
 
         public static string Ticker = "/ticker";
         public static string Symbols = "/symbols";
+        public static string Candles = "/candles";
     }
 }
 

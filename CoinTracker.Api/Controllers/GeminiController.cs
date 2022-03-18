@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace CoinTracker.Api.Controllers
 {
-    [Route("api/gemini/symbols")]
+    [Route("api/gemini")]
     public class GeminiController : Controller
     {
         private readonly IGeminiClientService _geminiClientService;
@@ -43,6 +43,19 @@ namespace CoinTracker.Api.Controllers
             try
             {
                 return await _geminiClientService.TryGetTickerSymbol(symbol);
+            }
+            catch (Exception ex)
+            {
+                return CoinTrackerResponse<GeminiResponse>
+                    .WithException(ex);
+            }
+        }
+        [HttpGet("{symbol}/{interval}")]
+        public async Task<CoinTrackerResponse<GeminiResponse>> TryGetCandles(string symbol, string interval)
+        {
+            try
+            {
+                return await _geminiClientService.TryGetCandles(symbol, interval);
             }
             catch (Exception ex)
             {

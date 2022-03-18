@@ -13,6 +13,11 @@ namespace CoinTracker.Client.Models
             SymbolsList = symbolsList;
         }
 
+        public GeminiResponse(List<List<double>> candles)
+        {
+            Candles = candles;
+        }
+
         public GeminiResponse(string symbol, string open, string high, string low,
             string close, List<string> changes, string bid, string ask)
         {
@@ -27,6 +32,8 @@ namespace CoinTracker.Client.Models
         }
 
         public List<string>? SymbolsList { get; set; }
+
+        public List<List<double>>? Candles { get; set; }
 
         public string? Symbol { get; set; }
         public string? Open { get; set; }

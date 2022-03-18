@@ -8,6 +8,7 @@ namespace CoinTracker.Client.Interfaces
     {
         Task<CoinTrackerResponse<GeminiResponse>> GetSymbols();
         Task<CoinTrackerResponse<GeminiResponse>> GetTickerSymbol(string symbol);
+        Task<CoinTrackerResponse<GeminiResponse>> GetCandles(string symbol, string interval);
     }
 }
 
